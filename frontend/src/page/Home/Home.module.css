@@ -1,0 +1,321 @@
+/* ===== 전체 컨테이너 ===== */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #faf5fb 0%, #f3e8f5 100%);
+}
+
+/* ===== 헤더 ===== */
+.container header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(226, 183, 231, 0.3);
+  box-shadow: 0 2px 20px rgba(226, 183, 231, 0.15);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #e2b7e7 0%, #b47bb8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(226, 183, 231, 0.2);
+}
+
+.profile img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 3px solid #e2b7e7;
+  object-fit: cover;
+}
+
+.profile div {
+  font-weight: 600;
+  color: #4a3f4d;
+}
+
+.profile button {
+  padding: 8px 16px;
+  border: none;
+  background: linear-gradient(135deg, #e2b7e7 0%, #d4a3da 100%);
+  color: white;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(226, 183, 231, 0.4);
+}
+
+/* ===== 메인 영역 ===== */
+.container main {
+  display: flex;
+  padding: 40px;
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== 콘텐츠 리스트 ===== */
+.content {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.content_li {
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+  background: white;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(226, 183, 231, 0.15);
+  border: 1px solid rgba(226, 183, 231, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.content_li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #e2b7e7 0%, #b47bb8 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.content_li:hover {
+  transform: translateY(-4px) translateX(4px);
+  box-shadow: 0 12px 40px rgba(180, 123, 184, 0.2);
+  border-color: #e2b7e7;
+}
+
+.content_li:hover::before {
+  opacity: 1;
+}
+
+.content_li:active {
+  transform: translateY(-2px) translateX(2px);
+}
+
+/* 링크 타이틀 */
+.linkTitle {
+  flex: 1;
+  font-weight: 600;
+  font-size: 16px;
+  color: #4a3f4d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* 카테고리 뱃지 */
+.category {
+  font-size: 12px;
+  font-weight: 600;
+  color: #b47bb8;
+  background: linear-gradient(135deg, #faf5fb 0%, #f3e8f5 100%);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(226, 183, 231, 0.4);
+  margin-right: 16px;
+}
+/* 삭제 버튼 */
+.content_li > div:last-child, .edit{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  color: #c9b8cb;
+  transition: all 0.25s ease;
+}
+
+.content_li > div:last-child:hover {
+  background: #fff0f0;
+  color: #e74c3c;
+  transform: scale(1.1);
+}
+.edit:hover{
+  background: #fff0f0;
+  color: #f37a6d;
+  transform: scale(1.1);
+}
+
+/* ===== 사이드바 ===== */
+.side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 추가 버튼 */
+.add_btn {
+  position: relative;
+  padding: 18px 36px;
+  border: none;
+  background: linear-gradient(135deg, #e2b7e7 0%, #b47bb8 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(180, 123, 184, 0.35);
+  transition: all 0.3s ease;
+}
+
+.add_btn span {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.add_btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #b47bb8 0%, #9a5f9d 100%);
+  transition: left 0.4s ease;
+}
+
+.add_btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(180, 123, 184, 0.45);
+}
+
+.add_btn:hover::before {
+  left: 0;
+}
+
+.add_btn:active {
+  transform: translateY(-1px);
+}
+
+/* 정렬 박스 */
+.sortBox {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(226, 183, 231, 0.15);
+  border: 1px solid rgba(226, 183, 231, 0.2);
+}
+
+.sortBox h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #b47bb8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.sortBox .add_btn {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 14px;
+}
+
+/* 카테고리 리스트 */
+.categoryList {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(226, 183, 231, 0.15);
+  border: 1px solid rgba(226, 183, 231, 0.2);
+}
+
+.categoryList h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #b47bb8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f3e8f5;
+}
+
+.category {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b5a6e;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.category:hover {
+  background: linear-gradient(135deg, #faf5fb 0%, #f3e8f5 100%);
+  color: #b47bb8;
+  padding-left: 24px;
+}
+
+.selectedCategory {
+  padding: 12px 16px;
+  padding-left: 24px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #e2b7e7 0%, #b47bb8 100%);
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(180, 123, 184, 0.3);
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 900px) {
+  .container main {
+    flex-direction: column-reverse;
+    padding: 20px;
+  }
+  
+  .side {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .sortBox, .categoryList {
+    flex: 1;
+    min-width: 200px;
+  }
+}

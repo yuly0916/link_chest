@@ -1,0 +1,144 @@
+/* 전체 배경 설정 */
+.pageWrapper {
+    background: linear-gradient(135deg, #f8f0ff, #e8d4f5);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+}
+
+/* 헤더 */
+.header h1 {
+    font-size: 1.8rem;
+    color: #AD69B8;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.header p {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 40px;
+    word-break: keep-all;
+}
+
+/* 그리드 레이아웃 */
+.categoryGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.categoryItem {
+    background: #ffffff;
+    padding: 20px 10px;
+    border-radius: 24px;
+    /* 둥글둥글한 느낌 */
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid transparent;
+    box-shadow: 0 8px 15px rgba(173, 105, 184, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.errMsg{
+    color: red !important;
+    font-weight: bolder;
+}
+.categoryItem:hover {
+    transform: scale(1.05);
+}
+
+.categoryItemActive {
+    background: #ffffff;
+    padding: 20px 10px;
+    border-radius: 24px;
+    /* 둥글둥글한 느낌 */
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid transparent;
+    box-shadow: 0 8px 15px rgba(173, 105, 184, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-color: #AD69B8;
+    background-color: #fff;
+}
+
+.categoryItem .icon {
+    font-size: 1.8rem;
+}
+
+.categoryItem .label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.categoryItem.active .label {
+    color: #AD69B8;
+}
+
+/* 입력창 영역 */
+.addCategory {
+    display: flex;
+    background: white;
+    padding: 6px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 60px;
+}
+
+.addCategory input {
+    flex: 1;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.addCategory button {
+    background-color: #AD69B8;
+    color: white;
+    border: none;
+    padding: 0 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.addCategory button:hover {
+    background-color: #8e5496;
+}
+
+/* 하단 버튼 */
+.nextBtn {
+    width: 100%;
+    background-color: #AD69B8;
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(173, 105, 184, 0.25);
+    transition: all 0.3s;
+}
+
+.nextBtn:hover {
+    background-color: #8e5496;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(173, 105, 184, 0.35);
+}
