@@ -16,7 +16,7 @@ app.include_router(category)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["http://43.203.201.8/"],
+    allow_origins = ["http://43.203.122.72/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
