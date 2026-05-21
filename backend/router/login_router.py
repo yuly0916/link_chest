@@ -79,3 +79,7 @@ def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str
     res = RedirectResponse(url=LOGIN_SUCCESS_PAGE)
     res.set_cookie(key="jwt_token", value=token)
     return res
+
+@login.get("/home")
+def home_page():
+    return {"status":"success","message":"성공"}

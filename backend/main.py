@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from router.category_router import category
 from router.login_router import login
 from router.link_router import link
-
+import uvicorn
 
 app = FastAPI()
 app.include_router(login)
@@ -21,3 +21,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8001)

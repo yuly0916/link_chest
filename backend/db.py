@@ -4,9 +4,9 @@ from typing import Annotated
 from fastapi import Depends
 
 import os
+from dotenv import load_dotenv
 
-
-
+load_dotenv()
 DB_USERNAME = os.environ.get('DB_USERNAME')
 DB_PASSWORD = os.environ.get('DB_PASSWORD')
 DB_IP = os.environ.get('DB_IP')
