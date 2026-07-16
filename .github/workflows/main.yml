@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: SSH Connect
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USER}}
+          key: ${{secrets.KEY}}
+          port: ${{secrets.PORT}}
+          script: |
+            cd /home/pi/link_chest
+            git pull origin main
+            cd frontend
+            npm update
+            npm install
+            npm run build
+            mv dist linkchest
+            cp -r linkchest /var/www/
+            systemctl restart nginx
+  
+            cd /home/pi/git-projects/link_chest/backend
+            source venv/bin/activate
+            pip install -r requirements.txt
+            systemctl restart linkchest
+        
