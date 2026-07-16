@@ -11,7 +11,7 @@ const Sidebar = ({ setLinks, 링크가져오기, sort, setSort, s }) => {
 
     async function 카테고리가져오기() {
         const 서버응답 = await api.get('/category');
-        setCategories(서버응답.data)
+        setCategories(Array.isArray(서버응답.data) ? 서버응답.data : []);
     }
     async function 카테고리링크가져오기(name) {
         const res = await api.get(`/link/category?name=${name}`);
@@ -38,7 +38,7 @@ const Sidebar = ({ setLinks, 링크가져오기, sort, setSort, s }) => {
                 <h2>나만의 카테고리</h2>
                 <div onClick={모두보기} className={s.category}>모두보기</div>
                 {
-                    categories.map(category => (
+                    (Array.isArray(categories) ? categories : []).map(category => (
                         <div key={category.category_code} onClick={() => 카테고리링크가져오기(category.name)} className={selectedCategory === category.name ? s.selectedCategory : s.category}>
                             <div>{category.name}</div>
                         </div>

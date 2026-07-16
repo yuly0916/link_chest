@@ -1,4 +1,6 @@
 from dotenv import load_dotenv
+from starlette.responses import RedirectResponse
+
 load_dotenv()
 
 from fastapi import FastAPI
@@ -16,10 +18,18 @@ app.include_router(category)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["http://43.203.122.72/"],
+    # allow_origins = ["http://43.203.122.72/"],
+    allow_origins = ["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/login/test")
+def login_test(code: str | None):
+    print(code)
+    return RedirectResponse(url="https://www.naver.com")
+
+
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8001)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)

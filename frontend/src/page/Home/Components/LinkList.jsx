@@ -6,6 +6,7 @@ import { CiEdit } from "react-icons/ci";
 import { useState } from "react";
 
 const LinkList = ({ links, setLinks, s }) => {
+    console.log("빌드");
     const [isEdit, setIsEdit] = useState(false);
     async function 삭제하기(code) {
         try {
@@ -22,7 +23,7 @@ const LinkList = ({ links, setLinks, s }) => {
         <div className={s.content}>
             <Tooltip style={{ zIndex: 9999, background: '#e2b7e7' }} id="msg" />
             {
-                links.map(link => (
+                (Array.isArray(links) ? links : []).map(link => (
                     <div key={link.code} className={s.content_li}>
 
                         {isEdit?<div className={s.linkTitle}><input/></div>:<div onClick={()=>{window.open(link.link)}}  className={s.linkTitle} data-tooltip-id="msg" data-tooltip-content={link.title}>{truncate(link.title, 40)}</div>}

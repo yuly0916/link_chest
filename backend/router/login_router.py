@@ -44,7 +44,6 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         return payload
     except:
         raise HTTPException(status_code=401, detail="Invalid token")
-
 @login.get("/login/redirect")
 def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str | None=None, error_description:str|None=None):
     data = {
@@ -56,6 +55,7 @@ def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str
     }
     response = requests.post("https://kauth.kakao.com/oauth/token",data)
     kakao_response_data = response.json()
+    print(kakao_response_data)
     headers = {
         "Authorization": f"Bearer {kakao_response_data['access_token']}",
         "Content_Type": "application/x-www-form-urlencoded;charset=utf-8"
