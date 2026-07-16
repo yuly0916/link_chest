@@ -20,6 +20,7 @@ jobs:
           port: ${{secrets.PORT}}
           script: |
             set -e
+            sudo su
             export NVM_DIR="$HOME/.nvm"
             . "$NVM_DIR/nvm.sh"
             nvm use 24
