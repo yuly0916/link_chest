@@ -20,6 +20,9 @@ jobs:
           port: ${{secrets.PORT}}
           script: |
             set -e
+            export NVM_DIR="$HOME/.nvm"
+            . "$NVM_DIR/nvm.sh"
+            nvm use 22
             cd /home/pi/git-projects/link_chest
             git pull origin main
             cd frontend
