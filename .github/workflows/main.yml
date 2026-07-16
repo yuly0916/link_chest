@@ -1,0 +1,39 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: SSH Connect
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USER}}
+          key: ${{secrets.KEY}}
+          port: ${{secrets.PORT}}
+          script: |
+            set -e
+            export NVM_DIR="$HOME/.nvm"
+            . "$NVM_DIR/nvm.sh"
+            nvm use 24
+            cd /home/pi/git-projects/link_chest
+            git pull origin main
+            cd frontend
+            npm update
+            npm install
+            npm run build
+            sudo rsync -a --delete dist/ /var/www/linkchest/
+            sudo systemctl restart nginx
+  
+            cd /home/pi/git-projects/link_chest/backend
+            source venv/bin/activate
+            pip install -r requirements.txt
+            sudo systemctl restart linkchest
+        
