@@ -55,7 +55,6 @@ def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str
     }
     response = requests.post("https://kauth.kakao.com/oauth/token",data)
     kakao_response_data = response.json()
-    print(kakao_response_data)
     headers = {
         "Authorization": f"Bearer {kakao_response_data['access_token']}",
         "Content_Type": "application/x-www-form-urlencoded;charset=utf-8"
@@ -66,10 +65,14 @@ def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str
     user = User(user_code=None, name=user_detail["nickname"], profile_image=user_detail["profile_image"], email=None, kakao_user_id=user_infor["id"])
     sql = select(User).where(User.kakao_user_id==user_infor["id"])
     try:
-        result = session.exec(sql).one()
+        result:User = session.exec(sql).one()
+        result.profile_image = user_detail["profile_image"]
+        result.name = user_detail["nickname"]
+        session.add(result)
         # 로그인
     except NoResultFound:
         session.add(user)
+    finally:
         session.commit()
 
     sql = select(User).where(User.kakao_user_id==user_infor["id"])

@@ -17,7 +17,6 @@ def get_user_category(session: SessionDep, user=Depends(get_current_user)):
 @category.post("/category")
 def create_category( session:SessionDep, user=Depends(get_current_user), name:str = Body(...)):
     r:Category = session.scalar(select(Category).where(Category.name==name, Category.user_code==user["user_code"]))
-    print(r)
     if r is None:
         category = Category(user_code=user["user_code"], name=name)
         session.add(category)
