@@ -29,8 +29,7 @@ jobs:
             npm update
             npm install
             npm run build
-            mv dist linkchest
-            cp -r linkchest /var/www/
+            sudo rsync -a --delete dist/ /var/www/linkchest/
             sudo systemctl restart nginx
   
             cd /home/pi/git-projects/link_chest/backend
