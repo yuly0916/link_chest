@@ -20,7 +20,6 @@ jobs:
           port: ${{secrets.PORT}}
           script: |
             set -e
-            sudo su
             export NVM_DIR="$HOME/.nvm"
             . "$NVM_DIR/nvm.sh"
             nvm use 24
@@ -32,10 +31,10 @@ jobs:
             npm run build
             mv dist linkchest
             cp -r linkchest /var/www/
-            systemctl restart nginx
+            sudo systemctl restart nginx
   
             cd /home/pi/git-projects/link_chest/backend
             source venv/bin/activate
             pip install -r requirements.txt
-            systemctl restart linkchest
+            sudo systemctl restart linkchest
         
