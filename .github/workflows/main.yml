@@ -22,7 +22,7 @@ jobs:
             set -e
             export NVM_DIR="$HOME/.nvm"
             . "$NVM_DIR/nvm.sh"
-            nvm use 22
+            nvm use 24
             cd /home/pi/git-projects/link_chest
             git pull origin main
             cd frontend
