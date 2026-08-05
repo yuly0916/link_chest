@@ -82,7 +82,37 @@ def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str
     res = RedirectResponse(url=LOGIN_SUCCESS_PAGE)
     res.set_cookie(key="jwt_token", value=token)
     return res
+@login.get("/login/guest")
+def guest_login(session: SessionDep):
+    sql= select(User).where(User.kakao_user_id == -1)
+    guest_user = session.exec(sql).first()
 
+    if guest_user is None:
+        guest_user = User(
+            user_code=None,
+            name="체험 사용자",
+            profile_image="",
+            email=None,
+            kakao_user_id=-1
+        )
+        session.add(guest_user)
+        session.commit()
+        session.refresh(guest_user)
+
+    token = create_token(
+        guest_user.user_code,
+        guest_user.name,
+        guest_user.profile_image,
+        guest_user.kakao_user_id
+    )
+    res = RedirectResponse(url=LOGIN_SUCCESS_PAGE)
+    res.set_cookie(
+        key="jwt_token",
+        value=token,
+        max_age=3600,
+        samesite="lax"
+    )
+    return res
 @login.get("/home")
 def home_page():
     return {"status":"success","message":"성공"}
