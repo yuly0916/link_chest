@@ -7,9 +7,6 @@ function get_cookie(name) {
     console.log("쿠키이름", name);
     
     var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');    
-    console.log("값", value);
-    console.log("쿠키");
-    console.log(document.cookie);
     
     
 

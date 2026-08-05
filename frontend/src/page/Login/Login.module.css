@@ -52,6 +52,39 @@
 .logo{
     width: 160px;
 }
+.guestButton {
+    width: 70%;
+    height: 56px;
+
+    border: 1.5px solid #c98bdf;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.45);
+    color: #9d59b8;
+
+    font-size: 17px;
+    font-weight: 700;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    box-shadow: 0 6px 16px rgba(159, 89, 190, 0.1);
+
+    transition: 0.2s ease;
+}
+
+.guestButton:hover {
+    background: #efd8f8;
+    border-color: #b76bd3;
+    color: #84419f;
+
+    transform: translateY(-2px);
+    box-shadow: 0 9px 20px rgba(159, 89, 190, 0.18);
+}
+
+.guestButton:active {
+    transform: translateY(0);
+}
 
 @media (max-width: 768px){
     .sideImg{
