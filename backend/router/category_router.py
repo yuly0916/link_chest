@@ -10,12 +10,17 @@ category = APIRouter(dependencies=[Depends(get_current_user)])
 
 @category.get("/category")
 def get_user_category(session: SessionDep, user=Depends(get_current_user)):
+    if user["login_type"] == 0:
+        return []
     sql = select(Category).where(or_(Category.user_code == user["user_code"]))
     result = session.exec(sql).all()
     return result
 
 @category.post("/category")
 def create_category( session:SessionDep, user=Depends(get_current_user), name:str = Body(...)):
+    if user["login_type"] == 0:
+        return 0
+
     r:Category = session.scalar(select(Category).where(Category.name==name, Category.user_code==user["user_code"]))
     if r is None:
         category = Category(user_code=user["user_code"], name=name)

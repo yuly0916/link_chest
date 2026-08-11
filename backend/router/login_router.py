@@ -10,6 +10,7 @@ from db import SessionDep
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException
 import os
+from typing import Literal
 
 login = APIRouter()
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -20,15 +21,17 @@ CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 LOGIN_SUCCESS_PAGE = os.environ.get('LOGIN_SUCCESS_PAGE')
 
 
-def create_token(user_code, name, profile_img, kakao_user_id):
+def create_token(user_code, name, profile_img, kakao_user_id,login_type):
     """
     티켓 발행 하는 함수
     """
     payload = {
+
         "user_code": user_code,
         "name": name,
         "profile_img": profile_img,
         "kakao_user_id": kakao_user_id,
+        "login_type": login_type,
         "exp": datetime.datetime.now() + datetime.timedelta(hours=1),
         "iat": datetime.datetime.now()
     }
@@ -45,7 +48,21 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     except:
         raise HTTPException(status_code=401, detail="Invalid token")
 @login.get("/login/redirect")
-def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str | None=None, error_description:str|None=None):
+def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str | None=None, error_description:str|None=None, mode:str |None = None):
+    if mode == "guest":
+        token = create_token(
+            user_code=None,
+            name="guest",
+            profile_img=None,
+            kakao_user_id=None,
+            login_type=0
+        )
+        res = RedirectResponse(url=LOGIN_SUCCESS_PAGE)
+        res.set_cookie(
+            key="jwt_token",
+            value=token
+        )
+        return res
     data = {
         "grant_type": "authorization_code",
         "client_id": CLIENT_ID,
@@ -82,37 +99,7 @@ def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str
     res = RedirectResponse(url=LOGIN_SUCCESS_PAGE)
     res.set_cookie(key="jwt_token", value=token)
     return res
-@login.get("/login/guest")
-def guest_login(session: SessionDep):
-    sql= select(User).where(User.kakao_user_id == -1)
-    guest_user = session.exec(sql).first()
 
-    if guest_user is None:
-        guest_user = User(
-            user_code=None,
-            name="체험 사용자",
-            profile_image="",
-            email=None,
-            kakao_user_id=-1
-        )
-        session.add(guest_user)
-        session.commit()
-        session.refresh(guest_user)
-
-    token = create_token(
-        guest_user.user_code,
-        guest_user.name,
-        guest_user.profile_image,
-        guest_user.kakao_user_id
-    )
-    res = RedirectResponse(url=LOGIN_SUCCESS_PAGE)
-    res.set_cookie(
-        key="jwt_token",
-        value=token,
-        max_age=3600,
-        samesite="lax"
-    )
-    return res
 @login.get("/home")
 def home_page():
     return {"status":"success","message":"성공"}

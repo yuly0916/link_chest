@@ -6,9 +6,24 @@ import { CiEdit } from "react-icons/ci";
 import { useState } from "react";
 
 const LinkList = ({ links, setLinks, s }) => {
-    console.log("빌드");
     const [isEdit, setIsEdit] = useState(false);
+
+
     async function 삭제하기(code) {
+        const guestLinks = JSON.parse(
+            sessionStorage.getItem("guest_links") || "[]"
+        );
+        const isGuestLink = guestLinks.some(link => link.code === code);
+        if (isGuestLink) {
+            const updateLinks = guestLinks.filter(link => link.code !== code);
+
+            sessionStorage.setItem(
+                "guest_links",
+                JSON.stringify(updateLinks)
+            );
+            setLinks(links.filter(link => link.code !== code));
+            return;
+        }
         try {
             const response = await api.delete(`/content?code=${code}`);
             setLinks(links.filter(link => link.code !== code))

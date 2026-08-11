@@ -27,11 +27,25 @@ const Home = () => {
         if (Object.keys(cookies).length === 0) {
             nav('/');
         } else {
-            setUser(jwtDecode(`Bearer ${cookies.jwt_token}`))
-            링크가져오기()
+            const decodedUser = jwtDecode(cookies.jwt_token);
+            setUser(decodedUser);
+            
+            if (decodedUser.login_type === 0) {
+                const guestLinks = JSON.parse(
+                    sessionStorage.getItem("guest_links") || "[]"
+                );
+                setLinks(guestLinks);
+            } else {
+                링크가져오기();
+                
+            }
         }
-    }, [])
-    useEffect(() => {링크가져오기()}, [sort])
+    }, []);
+    useEffect(() => {
+        if (user.login_type === 1) {
+            링크가져오기();
+        }
+     }, [sort]);
     return (
         <div className={s.container}>
             <Header title="Link Chest" user={user} s={s}/>

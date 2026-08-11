@@ -14,13 +14,32 @@ const LinkAdd = () => {
     const [link, setLink] = useState({title:'', link:''});
     const handleInput = (e) => setLink(p=>({...p, [e.target.name]: e.target.value}));
     async function 링크추가하기(){
+        const linkUrl = !link.link.startsWith("https") ? "https://www." + link.link:link.link;
         const response = await api.post('/link',{
             category_code: category.code, 
-            link: !link.link.startsWith("https") ? "https://www."+link.link : link.link, 
+            link: linkUrl, 
             title: link.title
         })        
         
         if(response.data){
+            if (category.code === 0) {
+                const guestLink = {
+                    code: Date.now(),
+                    title:link.title,
+                    category_name: category.label,
+                    link:linkUrl
+                };
+                const guestLinks = JSON.parse(
+                    sessionStorage.getItem("guest_links") || "[]"
+                );
+                sessionStorage.setItem(
+                    "guest_links",
+                    JSON.stringify([
+                        ...guestLinks,
+                        guestLink
+                    ])
+                );
+            }
             nav("/home")
         }
         else{

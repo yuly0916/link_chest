@@ -24,7 +24,8 @@ jobs:
             . "$NVM_DIR/nvm.sh"
             nvm use 24
             cd /home/pi/git-projects/link_chest
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
             cd frontend
             npm update
             npm install
