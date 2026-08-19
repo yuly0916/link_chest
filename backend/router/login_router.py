@@ -94,7 +94,7 @@ def kakao_login_redirect(session:SessionDep, code: str | None = None, error: str
 
     sql = select(User).where(User.kakao_user_id==user_infor["id"])
     result = session.exec(sql).first().dict()
-    token = create_token(result["user_code"], result["name"], result["profile_image"], result["kakao_user_id"])
+    token = create_token(result["user_code"], result["name"], result["profile_image"], result["kakao_user_id"],1)
 
     res = RedirectResponse(url=LOGIN_SUCCESS_PAGE)
     res.set_cookie(key="jwt_token", value=token)
